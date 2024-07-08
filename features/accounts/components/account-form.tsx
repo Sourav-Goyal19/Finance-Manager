@@ -42,6 +42,7 @@ export const AccountForm: React.FC<AccountFormProps> = ({
 
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
+    onSubmit(data);
   };
 
   const handleDelete = () => {
