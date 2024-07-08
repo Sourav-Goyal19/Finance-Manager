@@ -1,0 +1,9 @@
+version: "3"
+services:
+  account-manager:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/account-manager
+    command: npm run dev
