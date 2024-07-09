@@ -11,6 +11,7 @@ import { insertAccountSchema } from "@/db/schema";
 import { z } from "zod";
 import { useCreateAccount } from "../api/use-create-account";
 import { useUser } from "@/zustand/user";
+import { useOpenAccount } from "../hooks/use-edit-account";
 
 const formFields = insertAccountSchema.pick({
   name: true,
@@ -18,8 +19,8 @@ const formFields = insertAccountSchema.pick({
 
 type FormValues = z.input<typeof formFields>;
 
-const NewAccountSheet = () => {
-  const { isOpen, onClose } = useNewAccount();
+const EditAccountSheet = () => {
+  const { isOpen, onClose } = useOpenAccount();
   const { user } = useUser();
   const mutation = useCreateAccount();
 
@@ -41,7 +42,7 @@ const NewAccountSheet = () => {
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent className="space-y-4">
         <SheetHeader>
-          <SheetTitle> New Account </SheetTitle>
+          <SheetTitle> Edit Account </SheetTitle>
           <SheetDescription>
             Create a new account to track your transactions.
           </SheetDescription>
@@ -52,4 +53,4 @@ const NewAccountSheet = () => {
   );
 };
 
-export default NewAccountSheet;
+export default EditAccountSheet;

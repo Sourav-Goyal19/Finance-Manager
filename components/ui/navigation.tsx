@@ -57,6 +57,7 @@ const Navigation = () => {
           <nav className="pt-6 flex flex-col gap-y-3">
             {routes.map((route) => (
               <Button
+                key={route.href}
                 variant={pathname == route.href ? "secondary" : "ghost"}
                 className="justify-start"
               >

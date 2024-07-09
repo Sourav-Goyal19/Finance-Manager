@@ -69,6 +69,7 @@ export const AccountForm: React.FC<AccountFormProps> = ({
                     {...field}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />

@@ -7,7 +7,7 @@ type NewAccountType = {
 };
 
 export const useNewAccount = create<NewAccountType>((set) => ({
-  isOpen: true,
+  isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
 }));
