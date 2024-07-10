@@ -9,7 +9,7 @@ import { client } from "@/lib/hono";
 import Actions from "./actions";
 
 export type ResponseType = InferResponseType<
-  (typeof client.api)[":email"]["accounts"]["$get"],
+  (typeof client.api)[":email"]["categories"]["$get"],
   200
 >["data"][0];
 

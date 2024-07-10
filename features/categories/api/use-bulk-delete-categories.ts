@@ -4,17 +4,17 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 type ResponseType = InferResponseType<
-  (typeof client.api)[":email"]["accounts"]["bulk-delete"]["$post"]
+  (typeof client.api)[":email"]["categories"]["bulk-delete"]["$post"]
 >;
 type RequestType = InferRequestType<
-  (typeof client.api)[":email"]["accounts"]["bulk-delete"]["$post"]
+  (typeof client.api)[":email"]["categories"]["bulk-delete"]["$post"]
 >["json"];
 
-export const useBulkDelete = (email: string) => {
+export const useBulkDeleteCategories = (email: string) => {
   const queryClient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (data) => {
-      const response = await client.api[":email"]["accounts"][
+      const response = await client.api[":email"]["categories"][
         "bulk-delete"
       ].$post({
         json: data,
@@ -25,11 +25,11 @@ export const useBulkDelete = (email: string) => {
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Account(s) deleted successfully");
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      toast.success("Categories deleted successfully");
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
     onError: (error) => {
-      toast.error(error.message || "Failed to delete account(s)");
+      toast.error(error.message || "Failed to delete categories");
     },
   });
   return mutation;

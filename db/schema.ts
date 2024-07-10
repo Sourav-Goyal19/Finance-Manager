@@ -23,9 +23,21 @@ export const usersTable = pgTable("users", {
 export const accountsTable = pgTable("accounts", {
   id: uuid("id").defaultRandom().primaryKey(),
   userId: text("user_id").notNull(),
+  plaidId: text("plaid_id"),
   name: text("name").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 export const insertAccountSchema = createInsertSchema(accountsTable);
+
+export const categoriesTable = pgTable("categories", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: text("user_id").notNull(),
+  name: text("name").notNull(),
+  plaidId: text("plaid_id"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertCategorySchema = createInsertSchema(categoriesTable);

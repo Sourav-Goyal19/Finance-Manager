@@ -1,5 +1,7 @@
 "use client";
 
+import { useConfirm } from "@/hooks/use-confirm";
+import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,23 +9,21 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { useDeleteAccount } from "@/features/accounts/api/use-delete-account";
-import { useOpenAccount } from "@/features/accounts/hooks/use-edit-account";
-import { useConfirm } from "@/hooks/use-confirm";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { useDeleteCategory } from "@/features/categories/api/use-delete-category";
+import { useOpenCategory } from "@/features/categories/hooks/use-edit-category";
 
 interface ActionsProps {
   id: string;
 }
 
 const Actions: React.FC<ActionsProps> = ({ id }) => {
-  const { onOpen } = useOpenAccount();
+  const { onOpen } = useOpenCategory();
   const { data } = useSession();
-  const deleteMutation = useDeleteAccount(id, data?.user?.email!);
+  const deleteMutation = useDeleteCategory(id, data?.user?.email!);
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",
-    "You are about to delete this account"
+    "You are about to delete this category"
   );
 
   const handleDelete = async () => {

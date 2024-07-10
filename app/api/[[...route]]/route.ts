@@ -1,4 +1,5 @@
 import AccountRouter from "./accounts";
+import CategoryRouter from "./categories";
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { HTTPException } from "hono/http-exception";
@@ -14,7 +15,9 @@ app.onError((err, ctx) => {
   return ctx.json({ error: "Internal Error" }, 500);
 });
 
-const routes = app.route("/:email/accounts", AccountRouter);
+const routes = app
+  .route("/:email/accounts", AccountRouter)
+  .route("/:email/categories", CategoryRouter);
 
 export const GET = handle(app);
 export const POST = handle(app);

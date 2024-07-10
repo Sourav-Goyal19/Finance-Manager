@@ -1,26 +1,28 @@
 "use client";
 
-import FetchUser from "@/components/fetch-user";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DataTable } from "@/components/data-table";
-import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+import { useSession } from "next-auth/react";
 import { Loader2, Plus } from "lucide-react";
 import { columns, ResponseType } from "./components/column";
-import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
+
+import FetchUser from "@/components/fetch-user";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useSession } from "next-auth/react";
-import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
+import { DataTable } from "@/components/data-table";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const AccountsPage = () => {
-  const { onOpen } = useNewAccount();
+import { useBulkDeleteCategories } from "@/features/categories/api/use-bulk-delete-categories";
+import { useNewCategory } from "@/features/categories/hooks/use-new-category";
+import { useGetCategories } from "@/features/categories/api/use-get-categories";
+
+const CategoriesPage = () => {
+  const { onOpen } = useNewCategory();
   const { data: authdata } = useSession();
-  const accountQuery = useGetAccounts(authdata?.user?.email!);
-  const deleteAccounts = useBulkDeleteAccounts(authdata?.user?.email!);
+  const categoryQuery = useGetCategories(authdata?.user?.email!);
+  const deleteCategories = useBulkDeleteCategories(authdata?.user?.email!);
 
-  const isDisabled = accountQuery.isLoading || deleteAccounts.isPending;
+  const isDisabled = categoryQuery.isLoading || deleteCategories.isPending;
 
-  if (accountQuery.isLoading) {
+  if (categoryQuery.isLoading) {
     return (
       <div className="max-w-screen-2xl mx-auto w-full -mt-24 pb-10">
         <Card className="border-none drop-shadow-sm">
@@ -37,13 +39,13 @@ const AccountsPage = () => {
     );
   }
 
-  const data: ResponseType[] = accountQuery.data || [];
+  const data: ResponseType[] = categoryQuery.data || [];
   return (
     <>
       <div className="max-w-screen-2xl mx-auto w-full -mt-24 pb-10">
         <Card className="border-none drop-shadow-sm">
           <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
-            <CardTitle className="text-xl line-clamp-1">Accounts</CardTitle>
+            <CardTitle className="text-xl line-clamp-1">Categories</CardTitle>
             <Button onClick={onOpen} size={"sm"}>
               <Plus className="size-4 mr-2" />
               Add New
@@ -56,7 +58,7 @@ const AccountsPage = () => {
               filterKey="name"
               onDelete={(rows) => {
                 const ids = rows.map((r) => r.original.id);
-                const deleted = deleteAccounts.mutate({
+                const deleted = deleteCategories.mutate({
                   ids,
                 });
                 console.log(deleted);
@@ -71,4 +73,4 @@ const AccountsPage = () => {
   );
 };
 
-export default AccountsPage;
+export default CategoriesPage;
