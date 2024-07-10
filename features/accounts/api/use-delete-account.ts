@@ -4,31 +4,30 @@ import { client } from "@/lib/hono";
 import { toast } from "sonner";
 
 type ResponseType = InferResponseType<
-  (typeof client.api)[":email"]["accounts"]["$post"]
+  (typeof client.api)[":email"]["accounts"][":id"]["$delete"]
 >;
-type RequestType = InferRequestType<
-  (typeof client.api)[":email"]["accounts"]["$post"]
->["json"];
 
-export const useCreateAccount = (email: string) => {
+export const useDeleteAccount = (id: string, email: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation<ResponseType, Error, RequestType>({
-    mutationFn: async (json) => {
-      const response = await client.api[":email"].accounts.$post({
-        json,
+  return useMutation<ResponseType, Error>({
+    mutationFn: async () => {
+      const response = await client.api[":email"].accounts[":id"].$delete({
         param: {
+          id,
           email,
         },
       });
       return response.json();
     },
     onSuccess: () => {
-      toast.success("Account created successfully");
+      toast.success("Account deleted successfully");
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["account", { id }] });
     },
     onError: (error) => {
-      toast.error(error.message || "Failed to create account");
+      console.log(error);
+      toast.error("Failed to delete account");
     },
   });
 };

@@ -16,7 +16,7 @@ const AccountsPage = () => {
   const { onOpen } = useNewAccount();
   const { data: authdata } = useSession();
   const accountQuery = useGetAccounts(authdata?.user?.email!);
-  const deleteAccounts = useBulkDelete();
+  const deleteAccounts = useBulkDelete(authdata?.user?.email!);
 
   const isDisabled = accountQuery.isLoading || deleteAccounts.isPending;
 
@@ -58,7 +58,6 @@ const AccountsPage = () => {
                 const ids = rows.map((r) => r.original.id);
                 const deleted = deleteAccounts.mutate({
                   ids,
-                  email: authdata?.user?.email!,
                 });
                 console.log(deleted);
               }}

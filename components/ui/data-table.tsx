@@ -85,7 +85,6 @@ export function DataTable<TData, TValue>({
             disabled={disabled}
             variant="outline"
             onClick={async () => {
-              console.log("calling");
               const ok = await confirm();
               if (ok) {
                 onDelete(table.getFilteredSelectedRowModel().rows);

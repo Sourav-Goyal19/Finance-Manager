@@ -6,8 +6,8 @@ export const useGetAccounts = (email: string) => {
   const query = useQuery({
     queryKey: ["accounts"],
     queryFn: async () => {
-      const res = await client.api.accounts.$get({
-        query: {
+      const res = await client.api[":email"].accounts.$get({
+        param: {
           email,
         },
       });

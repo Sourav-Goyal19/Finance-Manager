@@ -4,19 +4,23 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 type ResponseType = InferResponseType<
-  (typeof client.api.accounts)["bulk-delete"]["$post"]
+  (typeof client.api)[":email"]["accounts"]["bulk-delete"]["$post"]
 >;
 type RequestType = InferRequestType<
-  (typeof client.api.accounts)["bulk-delete"]["$post"]
+  (typeof client.api)[":email"]["accounts"]["bulk-delete"]["$post"]
 >["json"];
 
-export const useBulkDelete = () => {
+export const useBulkDelete = (email: string) => {
   const queryClient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (data) => {
-      console.log(data);
-      const response = await client.api.accounts["bulk-delete"].$post({
+      const response = await client.api[":email"]["accounts"][
+        "bulk-delete"
+      ].$post({
         json: data,
+        param: {
+          email,
+        },
       });
       return response.json();
     },

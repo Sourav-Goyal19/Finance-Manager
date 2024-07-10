@@ -73,7 +73,10 @@ export const AccountForm: React.FC<AccountFormProps> = ({
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={disabled}>
+          <Button
+            type="submit"
+            disabled={disabled || form.watch("name").length < 1}
+          >
             {id ? "Save Changes" : "Create Account"}
           </Button>
           {!!id && (

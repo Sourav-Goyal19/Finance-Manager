@@ -10,13 +10,13 @@ const app = new Hono()
   .get(
     "/",
     zValidator(
-      "query",
+      "param",
       z.object({
         email: z.string().email(),
       })
     ),
     async (ctx) => {
-      const email = ctx.req.valid("query").email;
+      const email = ctx.req.valid("param").email;
       if (!email) {
         return ctx.json({ error: "Email Id is required" }, 400);
       }
@@ -43,17 +43,12 @@ const app = new Hono()
       "param",
       z.object({
         id: z.string().optional(),
-      })
-    ),
-    zValidator(
-      "query",
-      z.object({
         email: z.string().email(),
       })
     ),
     async (c) => {
-      const email = c.req.valid("query").email;
       const id = c.req.valid("param").id;
+      const email = c.req.valid("param").email;
       if (!id) {
         return c.json({ error: "Id is required" }, 400);
       }
@@ -94,17 +89,28 @@ const app = new Hono()
   .post(
     "/",
     zValidator(
+      "param",
+      z.object({
+        email: z.string().email(),
+      })
+    ),
+    zValidator(
       "json",
       insertAccountSchema.pick({
         name: true,
-        userId: true,
       })
     ),
     async (c) => {
-      const { name, userId } = c.req.valid("json");
+      const { name } = c.req.valid("json");
+      const email = c.req.valid("param").email;
 
-      if (!userId) {
-        return c.json({ error: "User Id is required" }, 400);
+      const [user] = await db
+        .select()
+        .from(usersTable)
+        .where(eq(usersTable.email, email));
+
+      if (!user) {
+        return c.json({ error: "User Not Found" }, 400);
       }
 
       if (!name) {
@@ -115,7 +121,7 @@ const app = new Hono()
         .insert(accountsTable)
         .values({
           name,
-          userId,
+          userId: user.id,
         })
         .returning();
 
@@ -125,18 +131,24 @@ const app = new Hono()
   .post(
     "/bulk-delete",
     zValidator(
+      "param",
+      z.object({
+        email: z.string().email(),
+      })
+    ),
+    zValidator(
       "json",
       z.object({
         ids: z.array(z.string()),
-        email: z.string(),
       })
     ),
     async (c) => {
       const values = c.req.valid("json");
+      const email = c.req.valid("param").email;
       const [user] = await db
         .select()
         .from(usersTable)
-        .where(eq(usersTable.email, values.email));
+        .where(eq(usersTable.email, email));
 
       if (!user) {
         return c.json({ error: "User Not Found" }, 404);
@@ -151,6 +163,104 @@ const app = new Hono()
           )
         )
         .returning();
+      return c.json({ data }, 200);
+    }
+  )
+  .patch(
+    "/:id",
+    zValidator(
+      "param",
+      z.object({
+        id: z.string().uuid("Invalid Account Id").optional(),
+        email: z.string().email(),
+      })
+    ),
+    zValidator(
+      "json",
+      insertAccountSchema.pick({
+        name: true,
+      })
+    ),
+    async (c) => {
+      const id = c.req.valid("param").id;
+      const email = c.req.valid("param").email;
+      const name = c.req.valid("json").name;
+
+      if (!id) {
+        return c.json({ error: "Account id is required" }, 400);
+      }
+
+      if (!email) {
+        return c.json({ error: "Email Id is required" }, 400);
+      }
+
+      if (!name) {
+        return c.json({ error: "Name is required" }, 400);
+      }
+
+      const [user] = await db
+        .select()
+        .from(usersTable)
+        .where(eq(usersTable.email, email));
+
+      if (!user) {
+        return c.json({ error: "User Not Found" }, 404);
+      }
+
+      const [data] = await db
+        .update(accountsTable)
+        .set({
+          name,
+        })
+        .where(and(eq(accountsTable.userId, user.id), eq(accountsTable.id, id)))
+        .returning();
+
+      if (!data) {
+        return c.json({ error: "Account Not Found" }, 404);
+      }
+
+      return c.json({ data }, 200);
+    }
+  )
+  .delete(
+    "/:id",
+    zValidator(
+      "param",
+      z.object({
+        id: z.string().uuid("Invalid Account Id").optional(),
+        email: z.string().email(),
+      })
+    ),
+    async (c) => {
+      const id = c.req.valid("param").id;
+      const email = c.req.valid("param").email;
+
+      if (!id) {
+        return c.json({ error: "Account id is required" }, 400);
+      }
+
+      if (!email) {
+        return c.json({ error: "Email Id is required" }, 400);
+      }
+
+      const [user] = await db
+        .select()
+        .from(usersTable)
+        .where(eq(usersTable.email, email));
+
+      if (!user) {
+        return c.json({ error: "User Not Found" }, 404);
+      }
+
+      const [data] = await db
+        .delete(accountsTable)
+        .where(and(eq(accountsTable.userId, user.id), eq(accountsTable.id, id)))
+        .returning();
+
+      if (!data) {
+        return c.json({ error: "Account Not Found" }, 404);
+      }
+
       return c.json({ data }, 200);
     }
   );

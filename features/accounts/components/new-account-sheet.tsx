@@ -11,6 +11,7 @@ import { insertAccountSchema } from "@/db/schema";
 import { z } from "zod";
 import { useCreateAccount } from "../api/use-create-account";
 import { useUser } from "@/zustand/user";
+import { useSession } from "next-auth/react";
 
 const formFields = insertAccountSchema.pick({
   name: true,
@@ -20,14 +21,13 @@ type FormValues = z.input<typeof formFields>;
 
 const NewAccountSheet = () => {
   const { isOpen, onClose } = useNewAccount();
-  const { user } = useUser();
-  const mutation = useCreateAccount();
+  const { data } = useSession();
+  const mutation = useCreateAccount(data?.user?.email!);
 
   const onSubmit = (data: FormValues) => {
     mutation.mutate(
       {
         name: data.name,
-        userId: user?.id as string,
       },
       {
         onSuccess: () => {

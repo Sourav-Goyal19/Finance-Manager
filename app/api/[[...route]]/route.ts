@@ -14,7 +14,7 @@ app.onError((err, ctx) => {
   return ctx.json({ error: "Internal Error" }, 500);
 });
 
-const routes = app.route("/accounts", AccountRouter);
+const routes = app.route("/:email/accounts", AccountRouter);
 
 export const GET = handle(app);
 export const POST = handle(app);
