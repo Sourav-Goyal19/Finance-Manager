@@ -1,0 +1,39 @@
+"use client";
+import { useQuery } from "@tanstack/react-query";
+import { client } from "@/lib/hono";
+import { useSearchParams } from "next/navigation";
+import { convertAmountFromMiliunits } from "@/lib/utils";
+
+export const useGetTransactions = (email: string) => {
+  const params = useSearchParams();
+  const from = params.get("from") || "";
+  const to = params.get("to") || "";
+  const accountId = params.get("accountId") || "";
+  const categoryId = params.get("categoryId") || "";
+  const query = useQuery({
+    queryKey: ["transactions", { from, to, accountId }],
+    queryFn: async () => {
+      const res = await client.api[":email"].transactions.$get({
+        param: {
+          email,
+        },
+        query: {
+          from,
+          to,
+          accountId,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch transactions");
+      }
+      const { data } = await res.json();
+      console.log(data);
+      return data.map((transaction) => ({
+        ...transaction,
+        amount: convertAmountFromMiliunits(transaction.amount),
+      }));
+    },
+  });
+  return query;
+};

@@ -1,5 +1,6 @@
 import AccountRouter from "./accounts";
 import CategoryRouter from "./categories";
+import TransactionsRouter from "./transactions";
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { HTTPException } from "hono/http-exception";
@@ -17,7 +18,8 @@ app.onError((err, ctx) => {
 
 const routes = app
   .route("/:email/accounts", AccountRouter)
-  .route("/:email/categories", CategoryRouter);
+  .route("/:email/categories", CategoryRouter)
+  .route("/:email/transactions", TransactionsRouter);
 
 export const GET = handle(app);
 export const POST = handle(app);

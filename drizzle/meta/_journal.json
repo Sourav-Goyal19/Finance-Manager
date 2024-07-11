@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1720285591177,
-      "tag": "0000_even_demogoblin",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1720341476346,
-      "tag": "0001_wandering_carlie_cooper",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1720599315100,
-      "tag": "0002_public_gladiator",
+      "when": 1720609717621,
+      "tag": "0000_milky_dazzler",
       "breakpoints": true
     }
   ]
