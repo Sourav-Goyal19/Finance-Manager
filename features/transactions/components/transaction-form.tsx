@@ -20,7 +20,6 @@ import { insertTransactionsSchema } from "@/db/schema";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { convertAmountToMiliunits } from "@/lib/utils";
 
 const formFields = z.object({
   date: z.coerce.date(),
@@ -70,8 +69,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
     const amount = parseFloat(data.amount);
-    const amountInMiliunits = convertAmountToMiliunits(amount);
-    onSubmit({ ...data, amount: amountInMiliunits });
+    onSubmit({ ...data, amount });
   };
 
   const handleDelete = () => {

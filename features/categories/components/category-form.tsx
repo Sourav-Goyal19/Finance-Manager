@@ -54,7 +54,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="flex flex-col gap-4 pt-6"
+          className="flex flex-col gap-4 mt-4"
         >
           <FormField
             control={form.control}

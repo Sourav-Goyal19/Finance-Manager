@@ -13,6 +13,7 @@ app.onError((err, ctx) => {
   if (err instanceof HTTPException) {
     return err.getResponse();
   }
+  console.log(err);
   return ctx.json({ error: "Internal Error" }, 500);
 });
 

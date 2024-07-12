@@ -10,7 +10,6 @@ import { AccountForm } from "./account-form";
 import { insertAccountSchema } from "@/db/schema";
 import { z } from "zod";
 import { useCreateAccount } from "../api/use-create-account";
-import { useUser } from "@/zustand/user";
 import { useSession } from "next-auth/react";
 
 const formFields = insertAccountSchema.pick({

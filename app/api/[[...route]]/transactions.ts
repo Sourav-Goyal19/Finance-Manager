@@ -12,6 +12,10 @@ import {
   accountsTable,
   categoriesTable,
 } from "@/db/schema";
+import {
+  convertAmountFromMiliunits,
+  convertAmountToMiliunits,
+} from "@/lib/utils";
 
 const app = new Hono()
   .get(
@@ -82,7 +86,14 @@ const app = new Hono()
         )
         .orderBy(desc(transactionsTable.date));
 
-      return ctx.json({ data }, 200);
+      const formattedData = data.map((item) => {
+        return {
+          ...item,
+          amount: convertAmountFromMiliunits(item.amount),
+        };
+      });
+
+      return ctx.json({ data: formattedData }, 200);
     }
   )
   .get(
@@ -96,6 +107,7 @@ const app = new Hono()
     ),
     async (c) => {
       const id = c.req.valid("param").id;
+      console.log(id);
       const email = c.req.valid("param").email;
       if (!id) {
         return c.json({ error: "Id is required" }, 400);
@@ -115,11 +127,25 @@ const app = new Hono()
       }
 
       const [data] = await db
-        .select()
+        .select({
+          id: transactionsTable.id,
+          amount: transactionsTable.amount,
+          date: transactionsTable.date,
+          payee: transactionsTable.payee,
+          accountId: transactionsTable.accountId,
+          categoryId: transactionsTable.categoryId,
+          notes: transactionsTable.notes,
+          category: categoriesTable.name,
+          account: accountsTable.name,
+        })
         .from(transactionsTable)
         .innerJoin(
           accountsTable,
           eq(accountsTable.id, transactionsTable.accountId)
+        )
+        .leftJoin(
+          categoriesTable,
+          eq(categoriesTable.id, transactionsTable.categoryId)
         )
         .where(
           and(
@@ -132,7 +158,12 @@ const app = new Hono()
         return c.json({ error: "Transaction Not Found" }, 404);
       }
 
-      return c.json({ data }, 200);
+      const formattedData = {
+        ...data,
+        amount: convertAmountFromMiliunits(data.amount),
+      };
+
+      return c.json({ data: formattedData }, 200);
     }
   )
   .post(
@@ -172,6 +203,7 @@ const app = new Hono()
         .values({
           ...values,
           userId: user.id,
+          amount: convertAmountToMiliunits(values.amount),
         })
         .returning();
 
@@ -249,7 +281,9 @@ const app = new Hono()
 
       const transactionsToDelete = db.$with("transactions_to_delete").as(
         db
-          .select()
+          .select({
+            id: transactionsTable.id,
+          })
           .from(transactionsTable)
           .innerJoin(
             accountsTable,
@@ -317,7 +351,9 @@ const app = new Hono()
 
       const transactionsToUpdate = db.$with("transactions_to_update").as(
         db
-          .select()
+          .select({
+            id: transactionsTable.id,
+          })
           .from(transactionsTable)
           .innerJoin(
             accountsTable,
@@ -337,6 +373,7 @@ const app = new Hono()
         .set({
           ...values,
           userId: user.id,
+          amount: convertAmountToMiliunits(values.amount),
         })
         .where(
           inArray(
@@ -385,7 +422,9 @@ const app = new Hono()
 
       const transactionToDelete = db.$with("transaction_to_delete").as(
         db
-          .select()
+          .select({
+            id: transactionsTable.id,
+          })
           .from(transactionsTable)
           .innerJoin(
             accountsTable,

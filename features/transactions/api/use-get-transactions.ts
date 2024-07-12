@@ -2,7 +2,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { client } from "@/lib/hono";
 import { useSearchParams } from "next/navigation";
-import { convertAmountFromMiliunits } from "@/lib/utils";
 
 export const useGetTransactions = (email: string) => {
   const params = useSearchParams();
@@ -28,11 +27,7 @@ export const useGetTransactions = (email: string) => {
         throw new Error("Failed to fetch transactions");
       }
       const { data } = await res.json();
-      console.log(data);
-      return data.map((transaction) => ({
-        ...transaction,
-        amount: convertAmountFromMiliunits(transaction.amount),
-      }));
+      return data;
     },
   });
   return query;
