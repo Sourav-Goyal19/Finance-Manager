@@ -1,9 +1,11 @@
-import AccountRouter from "./accounts";
-import CategoryRouter from "./categories";
-import TransactionsRouter from "./transactions";
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { HTTPException } from "hono/http-exception";
+
+import AccountRouter from "./accounts";
+import CategoryRouter from "./categories";
+import TransactionsRouter from "./transactions";
+import SummaryRouter from "./summary";
 
 export const runtime = "edge";
 
@@ -13,11 +15,11 @@ app.onError((err, ctx) => {
   if (err instanceof HTTPException) {
     return err.getResponse();
   }
-  console.log(err);
-  return ctx.json({ error: "Internal Error" }, 500);
+  return ctx.json({ error: err.message }, 500);
 });
 
 const routes = app
+  .route("/:email/summary", SummaryRouter)
   .route("/:email/accounts", AccountRouter)
   .route("/:email/categories", CategoryRouter)
   .route("/:email/transactions", TransactionsRouter);

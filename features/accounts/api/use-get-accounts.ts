@@ -16,7 +16,6 @@ export const useGetAccounts = (email: string) => {
         throw new Error("Failed to fetch accounts");
       }
       const { data } = await res.json();
-      console.log(data);
       return data;
     },
   });

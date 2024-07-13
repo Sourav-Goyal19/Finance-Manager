@@ -8,7 +8,6 @@ export const useGetTransactions = (email: string) => {
   const from = params.get("from") || "";
   const to = params.get("to") || "";
   const accountId = params.get("accountId") || "";
-  const categoryId = params.get("categoryId") || "";
   const query = useQuery({
     queryKey: ["transactions", { from, to, accountId }],
     queryFn: async () => {

@@ -246,6 +246,7 @@ const app = new Hono()
           values.map((v) => ({
             ...v,
             userId: user.id,
+            amount: convertAmountToMiliunits(v.amount),
           }))
         )
         .returning();

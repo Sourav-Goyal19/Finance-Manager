@@ -18,7 +18,6 @@ export const useGetCategory = (id: string, email: string) => {
         throw new Error("Failed to fetch category");
       }
       const { data } = await res.json();
-      console.log(data);
       return data;
     },
   });

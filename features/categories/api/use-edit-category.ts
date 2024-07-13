@@ -22,6 +22,13 @@ export const useEditCategory = (id: string, email: string) => {
         },
         json,
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        const errorMessage = errorData.error || response.statusText;
+        throw new Error(errorMessage);
+      }
+
       return response.json();
     },
     onSuccess: () => {
@@ -32,7 +39,7 @@ export const useEditCategory = (id: string, email: string) => {
     },
     onError: (error) => {
       console.log(error);
-      toast.error("Failed to update category");
+      toast.error(error.message || "Failed to update category");
     },
   });
 };

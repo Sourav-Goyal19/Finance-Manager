@@ -21,6 +21,13 @@ export const useCreateTransaction = (email: string) => {
           email,
         },
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        const errorMessage = errorData.error || response.statusText;
+        throw new Error(errorMessage);
+      }
+
       return response.json();
     },
     onSuccess: () => {

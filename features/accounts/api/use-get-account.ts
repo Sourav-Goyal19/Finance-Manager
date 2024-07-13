@@ -18,7 +18,6 @@ export const useGetAccount = (id: string, email: string) => {
         throw new Error("Failed to fetch account");
       }
       const { data } = await res.json();
-      console.log(data);
       return data;
     },
   });
