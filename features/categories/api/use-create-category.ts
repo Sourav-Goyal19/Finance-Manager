@@ -33,6 +33,7 @@ export const useCreateCategory = (email: string) => {
     onSuccess: () => {
       toast.success("Category created successfully");
       queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["summary"] });
     },
     onError: (error) => {
       toast.error(error.message || "Failed to create category");

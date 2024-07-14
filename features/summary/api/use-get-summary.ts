@@ -2,7 +2,6 @@
 import { client } from "@/lib/hono";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { toast } from "sonner";
 
 export const useGetSummary = (email: string) => {
   const params = useSearchParams();

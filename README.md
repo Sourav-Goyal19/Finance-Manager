@@ -14,11 +14,28 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Key Features:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- 📊 Interactive financial dashboard
+- 🔁 Changeable chart types
+- 🗓 Account and date filters
+- 💹 Detailed transactions table
+- ➕ Form to add transactions
+- 🧩 Customizable select components
+- 💵 Income and expense toggle
+- 🔄 CSV transaction imports
+- 🔥 API via Hono.js
+- 🪝 State management via Tanstack React Query
+- 🔗 Bank account connections with Plaid
+- 💳 Premium upgrades via Lemon Squeezy
+- 🔐 Authentication via Clerk (Core 2)
+- 🗑 Bulk delete and search in transactions
+- ⚙️ Bank disconnection and subscription management
+- 👤 User settings customization
+- 🌐 Built with Next.js 14
+- 🎨 Styled with TailwindCSS and Shadcn UI
+- 💾 PostgreSQL & Drizzle ORM
+- 🚀 Deployed on AWS
 
 ## Learn More
 
