@@ -1,16 +1,16 @@
-"use client";
-import FetchUser from "@/components/fetch-user";
-import { Button } from "@/components/ui/button";
-import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+import getCurrentUser from "@/actions/getCurrentUser";
+import DataGrid from "@/components/data-grid";
+import { redirect } from "next/navigation";
 
-const DashboardPage = () => {
-  const { onOpen } = useNewAccount();
+const DashboardPage = async () => {
+  const user = await getCurrentUser();
+  if (!user) {
+    return redirect("/sign-in");
+  }
   return (
-    <>
-      <div>Dashboard Page</div>
-      <Button onClick={onOpen}>Open Panel</Button>
-      <FetchUser />
-    </>
+    <div className="max-w-screen-2xl mx-auto w-full -mt-24 pb-10">
+      <DataGrid user={user} />
+    </div>
   );
 };
 
