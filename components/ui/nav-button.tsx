@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "./button";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface NavButtonProps {

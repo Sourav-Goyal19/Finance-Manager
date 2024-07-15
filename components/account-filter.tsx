@@ -7,8 +7,8 @@ import {
   SelectItem,
   SelectValue,
   SelectTrigger,
-} from "./ui/select";
-import { Skeleton } from "./ui/skeleton";
+} from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import qs from "query-string";
 

@@ -1,9 +1,9 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import Filters from "../filters";
-import HeaderLogo from "./header-logo";
-import Navigation from "./navigation";
-import UserAvatar from "./user-avatar";
-import WelcomeMsg from "./welcome-msg";
+import HeaderLogo from "@/components/ui/header-logo";
+import Navigation from "@/components/ui/navigation";
+import UserAvatar from "@/components/ui/user-avatar";
+import WelcomeMsg from "@/components/ui/welcome-msg";
 
 const Header = async () => {
   const user = await getCurrentUser();

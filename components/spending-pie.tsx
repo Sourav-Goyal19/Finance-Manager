@@ -1,5 +1,5 @@
 import { FileSearch, Loader2, PieChart, Radar, Target } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 import {
   Select,
@@ -7,11 +7,11 @@ import {
   SelectContent,
   SelectTrigger,
   SelectItem,
-} from "./ui/select";
+} from "@/components/ui/select";
 import { PieVariant } from "./variants/pie-variant";
 import { RadarVariant } from "./variants/radar-variant";
 import { RadialVariant } from "./variants/radial-variant";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface SpendingPieProps {
   data?: {

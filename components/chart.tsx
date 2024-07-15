@@ -5,7 +5,7 @@ import {
   LineChart,
   Loader2,
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AreaVariant } from "./variants/area-variant";
 import { BarVariant } from "./variants/bar-variant";
 import { LineVariant } from "./variants/line-variant";
@@ -16,8 +16,8 @@ import {
   SelectContent,
   SelectTrigger,
   SelectItem,
-} from "./ui/select";
-import { Skeleton } from "./ui/skeleton";
+} from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ChartProps {
   data?: {

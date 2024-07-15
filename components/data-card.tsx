@@ -6,10 +6,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "@/components/ui/card";
 import { cn, formatCurrency, formatPercentage } from "@/lib/utils";
 import { CountUp } from "./count-up";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const boxVariant = cva("rounded-md p-3 shrink-0", {
   variants: {

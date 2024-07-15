@@ -1,12 +1,12 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
-import { Button } from "./button";
+import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { UserData } from "@/types";
-import { Skeleton } from "./skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface UserAvatarProps {
   user?: UserData | null;
