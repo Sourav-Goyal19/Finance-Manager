@@ -27,9 +27,8 @@ const ImportTable: React.FC<ImportTableProps> = ({
         <TableHeader>
           <TableRow className="bg-muted">
             {headers.map((_item, index) => (
-              <TableHead>
+              <TableHead key={index}>
                 <TableHeadSelect
-                  key={index}
                   columnIndex={index}
                   selectedColumns={selectedColumns}
                   onChange={onTableHeadSelectChange}

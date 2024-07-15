@@ -1,5 +1,5 @@
 "use client";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { LogOut } from "lucide-react";
@@ -17,10 +17,6 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const logoutbtnref = useRef<HTMLButtonElement>(null);
 
-  if (!user) {
-    return <Skeleton className="w-36 h-10" />;
-  }
-
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
@@ -36,6 +32,10 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
       document.documentElement.removeEventListener("click", handleClickOutside);
     };
   }, [logoutbtnref, setIsOpen]);
+
+  if (!user) {
+    return <Skeleton className="w-36 h-10" />;
+  }
 
   return (
     <div className="relative flex w-36 flex-col">
