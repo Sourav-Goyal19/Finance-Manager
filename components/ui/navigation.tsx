@@ -58,6 +58,7 @@ const Navigation = () => {
             {routes.map((route) => (
               <Button
                 key={route.href}
+                onClick={() => onClick(route.href)}
                 variant={pathname == route.href ? "secondary" : "ghost"}
                 className="justify-start"
               >

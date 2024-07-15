@@ -66,7 +66,7 @@ export const PieVariant: React.FC<PieVariantProps> = ({ data }) => {
           labelLine={false}
         >
           {data?.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            <Cell key={`cell-${index}`} fill={COLORS[index]} />
           ))}
         </Pie>
       </PieChart>

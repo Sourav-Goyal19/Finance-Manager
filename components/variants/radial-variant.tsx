@@ -5,7 +5,6 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { CategoryTooltip } from "./category-tooltip";
 
 interface RadialVariantProps {
   data?: {
@@ -27,7 +26,7 @@ export const RadialVariant: React.FC<RadialVariantProps> = ({ data }) => {
         outerRadius="40%"
         data={data?.map((item, index) => ({
           ...item,
-          fill: COLORS[index % COLORS.length],
+          fill: COLORS[index],
         }))}
       >
         <RadialBar

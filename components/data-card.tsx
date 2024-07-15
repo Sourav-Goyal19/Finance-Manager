@@ -86,7 +86,10 @@ export const DataCard: React.FC<DataCardProps> = ({
           className={cn(
             "text-muted-foreground text-sm line-clamp-1",
             percentageChange > 0 && "text-emerald-500",
-            percentageChange < 0 && "text-rose-500"
+            percentageChange < 0 && "text-rose-500",
+            title == "Expenses" && percentageChange > 0 && "text-rose-500",
+            title == "Expenses" && percentageChange < 0 && "text-emerald-500",
+            title == "Remaining" && percentageChange > 0 && "text-blue-500"
           )}
         >
           {formatPercentage(percentageChange, { addPrefix: true })} from last
