@@ -124,19 +124,6 @@ const AuthForm = () => {
     <div className="border rounded-lg p-7 mt-5 max-w-[550px] mx-3 shadow-xl w-full">
       {step === "signup" ? (
         <>
-          <Button
-            className="w-full flex gap-2 items-center text-base"
-            variant={"outline"}
-          >
-            <BsGoogle /> Google
-          </Button>
-          <div className="relative mt-6 mb-4">
-            <div className="absolute border top-3 w-full"></div>
-            <div className="relative flex items-center justify-center">
-              <p className="bg-white text-gray-900/75 px-2">Or Continue With</p>
-            </div>
-          </div>
-
           <Form {...signupForm}>
             <form
               onSubmit={signupForm.handleSubmit(onSignupSubmit)}

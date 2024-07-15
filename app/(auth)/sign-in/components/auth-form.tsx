@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { BsGoogle } from "react-icons/bs";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -62,38 +61,8 @@ const AuthForm = () => {
     }
   };
 
-  const signInWithGoogle = () => {
-    setIsLoading(true);
-    try {
-      signIn("google", {
-        redirect: true,
-        callbackUrl: "/",
-      });
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <div className="border rounded-lg p-7 mt-5 max-w-[550px] mx-3 shadow-xl w-full">
-      <Button
-        onClick={signInWithGoogle}
-        disabled={isLoading}
-        className="w-full flex gap-2 items-center text-base"
-        variant={"outline"}
-      >
-        <BsGoogle /> Google
-      </Button>
-      <div className="relative mt-6 mb-4">
-        <div className="absolute border top-3 w-full"></div>
-        <div className="relative flex items-center justify-center">
-          <p className="bg-white text-gray-900/75 px-2">Or Continue With</p>
-        </div>
-      </div>
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
           <FormField
