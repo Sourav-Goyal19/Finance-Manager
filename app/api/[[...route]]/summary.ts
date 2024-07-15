@@ -187,6 +187,7 @@ const app = new Hono().get(
       )
       .where(
         and(
+          accountId ? eq(transactionsTable.accountId, accountId) : undefined,
           eq(transactionsTable.userId, user.id),
           gte(transactionsTable.date, startDate),
           lte(transactionsTable.date, endDate)

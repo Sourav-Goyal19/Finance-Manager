@@ -8,6 +8,13 @@
       "when": 1720609717621,
       "tag": "0000_milky_dazzler",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1721049959171,
+      "tag": "0001_giant_tattoo",
+      "breakpoints": true
     }
   ]
 }

@@ -5,13 +5,21 @@ import { useEffect, useRef, useState } from "react";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { UserData } from "@/types";
+import { Skeleton } from "./skeleton";
 
-const UserAvatar = () => {
-  const a = useSession();
+interface UserAvatarProps {
+  user?: UserData | null;
+}
+
+const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const logoutbtnref = useRef<HTMLButtonElement>(null);
-  const user = a.data?.user;
+
+  if (!user) {
+    return <Skeleton className="w-36 h-10" />;
+  }
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {

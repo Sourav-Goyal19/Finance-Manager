@@ -1,4 +1,3 @@
-"use client";
 import { client } from "@/lib/hono";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
@@ -9,7 +8,7 @@ export const useGetSummary = (email: string) => {
   const to = params.get("to") || "";
   const accountId = params.get("accountId") || "";
   const query = useQuery({
-    queryKey: ["summary"],
+    queryKey: ["summary", { from, to, accountId }],
     queryFn: async () => {
       const response = await client.api[":email"].summary.$get({
         query: {
@@ -27,7 +26,6 @@ export const useGetSummary = (email: string) => {
       }
 
       const { data } = await response.json();
-      console.log(data);
       return data;
     },
   });
