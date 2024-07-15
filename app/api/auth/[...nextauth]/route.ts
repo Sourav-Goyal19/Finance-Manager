@@ -16,7 +16,7 @@ export const authOptions: AuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         if (!credentials?.email) {
           throw new Error("Email is required");
         }
@@ -24,16 +24,14 @@ export const authOptions: AuthOptions = {
           throw new Error("Password is required");
         }
 
-        const users = await db
+        const [user] = await db
           .select()
           .from(usersTable)
           .where(eq(usersTable.email, credentials.email));
 
-        if (users.length === 0) {
+        if (!user) {
           throw new Error("Invalid email");
         }
-
-        const user = users[0];
 
         const isPasswordValid = await bcrypt.compare(
           credentials.password,
@@ -47,40 +45,11 @@ export const authOptions: AuthOptions = {
         return user;
       },
     }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
   ],
   session: {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-  callbacks: {
-    async signIn({ user, account }) {
-      try {
-        console.log("User", user);
-        console.log("Account", account);
-        const existingUsers = await db
-          .select()
-          .from(usersTable)
-          .where(eq(usersTable.email, user.email!))
-          .limit(1);
-
-        if (existingUsers.length === 0) {
-          await db.insert(usersTable).values({
-            name: user.name!,
-            email: user.email!,
-            image: user.image!,
-          });
-        }
-        return true;
-      } catch (error) {
-        console.error("Error in signIn callback:", error);
-        return false;
-      }
-    },
-  },
 };
 
 const handler = NextAuth(authOptions);
