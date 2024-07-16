@@ -12,6 +12,7 @@ Finflow is a comprehensive finance management application designed to help users
 - 🧩 **Customizable Select Components:** Personalize your data selection for a tailored experience.
 - 💵 **Income and Expense Toggle:** Quickly switch between viewing income and expenses.
 - 🔄 **CSV Transaction Imports:** Import your transactions seamlessly from CSV files.
+- ⏳ **Add Skeleton UI for Loading:** Improve user experience with a skeleton screen while data is loading.
 - 🔥 **API via Hono.js:** Efficient backend API handling for smooth operations.
 - 🪝 **State Management via Tanstack React Query:** Manage your application's state effectively.
 - 🔐 **Authentication via Next Auth:** Secure user authentication for server-side rendering.
