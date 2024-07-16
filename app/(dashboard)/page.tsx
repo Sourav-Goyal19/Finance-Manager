@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 
-import DataGrid from "@/components/data-grid";
 import getCurrentUser from "@/actions/getCurrentUser";
 import { redirect } from "next/navigation";
 import { DataCharts } from "@/components/data-charts";
+import ClientDataGrid from "@/components/client-data-grid";
 
 export const metadata: Metadata = {
   title: "FinFlow - Smart Finance Management",
@@ -18,7 +18,7 @@ const DashboardPage = async () => {
   }
   return (
     <div className="max-w-screen-2xl mx-auto w-full -mt-24 pb-10">
-      <DataGrid user={user} />
+      <ClientDataGrid user={user} />
       <DataCharts user={user} />
     </div>
   );
