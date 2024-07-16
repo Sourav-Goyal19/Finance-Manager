@@ -41,6 +41,11 @@ To set up and run Finflow locally, follow these steps:
 
 3. Provide your own database connection string and `NEXTAUTH_SECRET` in the `.env` file.
 
+   ```env
+   DATABASE_URL=your-database-connection-string
+   NEXTAUTH_SECRET=your-nextauth-secret
+   ```
+
 4. Start the development server:
    ```
    npm run dev
