@@ -5,7 +5,9 @@ export const middleware = (req: NextRequest) => {
 
   const isPublicPath = pathname == "/sign-in" || pathname == "/sign-up";
 
-  const nextAuthToken = req.cookies.get("next-auth.session-token");
+  const nextAuthToken =
+    req.cookies.get("next-auth.session-token") ||
+    req.cookies.get("__Secure-next-auth.session-token");
 
   if (!nextAuthToken && !isPublicPath) {
     return NextResponse.redirect(new URL("/sign-in", req.url));
