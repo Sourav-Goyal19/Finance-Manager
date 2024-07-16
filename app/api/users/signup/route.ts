@@ -1,11 +1,8 @@
-import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import { eq } from "drizzle-orm";
 import { db } from "@/db/drizzle";
 import { usersTable } from "@/db/schema";
-import { Resend } from "resend";
-import { eq } from "drizzle-orm";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
@@ -25,8 +22,6 @@ export async function POST(request: Request) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    // const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    // const otpExpiry = new Date(Date.now() + 15 * 60 * 1000);
 
     const [user] = await db
       .insert(usersTable)
@@ -34,17 +29,8 @@ export async function POST(request: Request) {
         name,
         email,
         password: hashedPassword,
-        // otp,
-        // otpExpiry,
       })
       .returning();
-
-    // await resend.emails.send({
-    //   from: "onboarding@resend.dev",
-    //   to: email,
-    //   subject: "Verify your email",
-    //   html: `Your OTP is: ${otp}`,
-    // });
 
     return NextResponse.json(
       { message: "User created  successfully. Please Login." },
