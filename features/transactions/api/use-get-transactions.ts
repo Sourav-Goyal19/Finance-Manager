@@ -1,4 +1,3 @@
-"use client";
 import { useQuery } from "@tanstack/react-query";
 import { client } from "@/lib/hono";
 import { useSearchParams } from "next/navigation";
