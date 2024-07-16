@@ -1,53 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Finflow - Finance Manager
 
-## Getting Started
+Finflow is a comprehensive finance management application designed to help users track and manage their financial transactions with ease. The application supports multiple account types like cash, bank, and card, allowing users to categorize their transactions and visualize them through various interactive charts. Finflow offers a range of features to enhance user experience, including customizable filters, detailed transaction tables, and multiple chart types. Users can also import transactions via CSV, manage their settings, and authenticate securely.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 📊 **Interactive Financial Dashboard:** Visualize your financial data with dynamic charts.
+- 🔁 **Changeable Chart Types:** Switch between area, line, bar, pie, radar, and radial charts for better insights.
+- 🗓 **Account and Date Filters:** Filter transactions by specific accounts and date ranges.
+- 💹 **Detailed Transactions Table:** View all your transactions in a comprehensive table with sorting and filtering options.
+- ➕ **Add Transactions Form:** Easily add new transactions using a user-friendly form.
+- 🧩 **Customizable Select Components:** Personalize your data selection for a tailored experience.
+- 💵 **Income and Expense Toggle:** Quickly switch between viewing income and expenses.
+- 🔄 **CSV Transaction Imports:** Import your transactions seamlessly from CSV files.
+- 🔥 **API via Hono.js:** Efficient backend API handling for smooth operations.
+- 🪝 **State Management via Tanstack React Query:** Manage your application's state effectively.
+- 🔐 **Authentication via Next Auth:** Secure user authentication for server-side rendering.
+- 🗑 **Bulk Delete and Search in Transactions:** Efficiently manage your transactions with bulk delete and search functionalities.
+- 👤 **User Settings Customization:** Customize your user settings for a personalized experience.
+- 🌐 **Built with Next.js 14:** Leveraging the latest features of Next.js for robust performance.
+- 🎨 **Styled with TailwindCSS and Shadcn UI:** Modern and responsive design using TailwindCSS and Shadcn UI.
+- 💾 **PostgreSQL & Drizzle ORM:** Reliable data storage and management.
+- 🚀 **Deployed on Vercel:** Fast and scalable deployment on Vercel.
+
+## Installation
+
+To set up and run Finflow locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/finflow.git
+   cd finflow
+   ```
+
+2. Install the dependencies:
+
+   ```
+   npm install
+   ```
+
+3. Provide your own database connection string and `NEXTAUTH_SECRET` in the `.env` file.
+
+4. Start the development server:
+   ```
+   npm run dev
+   ```
+
+## Technologies Used
+
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- PostgreSQL
+- Neon for database
+- Drizzle ORM
+- Next Auth
+- Hono.js for API
+- Shadcn UI
+
+## Configuration
+
+Ensure you have the following environment variables set up in your `.env` file:
+
+```env
+DATABASE_URL=your-database-connection-string
+NEXTAUTH_SECRET=your-nextauth-secret
 ```
 
-Key Features:
+## Usage
 
-- 📊 Interactive financial dashboard
-- 🔁 Changeable chart types
-- 🗓 Account and date filters
-- 💹 Detailed transactions table
-- ➕ Form to add transactions
-- 🧩 Customizable select components
-- 💵 Income and expense toggle
-- 🔄 CSV transaction imports
-- 🔥 API via Hono.js
-- 🪝 State management via Tanstack React Query
-- 🔗 Bank account connections with Plaid
-- 💳 Premium upgrades via Lemon Squeezy
-- 🔐 Authentication via Clerk (Core 2)
-- 🗑 Bulk delete and search in transactions
-- ⚙️ Bank disconnection and subscription management
-- 👤 User settings customization
-- 🌐 Built with Next.js 14
-- 🎨 Styled with TailwindCSS and Shadcn UI
-- 💾 PostgreSQL & Drizzle ORM
-- 🚀 Deployed on AWS
+You can interact with the application via this link: [Finflow Manager](https://finflow-manager.vercel.app)
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions are welcome! Please follow these guidelines:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature-name`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature/your-feature-name`).
+6. Open a Pull Request.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
