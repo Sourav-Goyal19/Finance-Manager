@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import TransactionsPageClient from "./components/transactions-client";
 
@@ -9,9 +10,18 @@ export const metadata: Metadata = {
 
 const TransactionsPage = () => {
   return (
-    <>
+    <Suspense fallback={<TransactionsPageFallback />}>
       <TransactionsPageClient />
-    </>
+    </Suspense>
+  );
+};
+
+const TransactionsPageFallback = () => {
+  return (
+    <div>
+      <h1>Transactions</h1>
+      <p>Loading transactions...</p>
+    </div>
   );
 };
 
