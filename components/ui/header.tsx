@@ -1,5 +1,5 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import Filters from "../filters";
+import ClientFilters from "@/components/client-filters";
 import HeaderLogo from "@/components/ui/header-logo";
 import Navigation from "@/components/ui/navigation";
 import UserAvatar from "@/components/ui/user-avatar";
@@ -18,7 +18,7 @@ const Header = async () => {
           <UserAvatar user={user} />
         </div>
         <WelcomeMsg />
-        <Filters user={user} />
+        <ClientFilters user={user} />
       </div>
     </header>
   );
