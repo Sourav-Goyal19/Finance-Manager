@@ -13,7 +13,7 @@ export const UploadButton: React.FC<UploadButtonProps> = ({ onUpload }) => {
     <CSVReader onUploadAccepted={onUpload}>
       {({ getRootProps }: any) => (
         <Button size={"sm"} className="w-full lg:w-auto" {...getRootProps()}>
-          <Upload className="mr-2 h-4 w-4" /> Import
+          <Upload className="mr-2 h-4 w-4" /> Import CSV
         </Button>
       )}
     </CSVReader>
